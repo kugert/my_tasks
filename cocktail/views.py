@@ -27,20 +27,25 @@ def add_cocktail(request):
         components_form = formset_factory(AddComponentsForm, extra=int(count))
     if 'create' in request.POST:
         new_cocktail_form = AddCocktailNameForm(request.POST)
-        new_cocktail = new_cocktail_form.save(commit=False)
-        cocktail_id = new_cocktail.pk
-        new_cocktail.save()
+        new_cocktail_form.save()
+        added_cocktail = new_cocktail_form['cocktail_name'].value()
+        last_added = Cocktail.objects.get(cocktail_name=added_cocktail)
+        cocktail_id = last_added.id
         '''not working
         ------------------------------------------------'''
         new_components = components_form(request.POST)
-        for component in new_components.cleaned_data:
-            component.save(commit=False)
-            query = Compose(cocktails=cocktail_id,
-                            ingredients=component.ingredients,
-                            ingredient_value=component.ingredient_value,
-                            measures=component.measures)
+        # new_components.save(commit=False)
+        for component in new_components:
+            '''query = Compose(cocktails=last_added,
+                            ingredients=Ingredient.objects.get(id=component['ingredients'].value()),
+                            ingredient_value=component['ingredient_value'].value(),
+                            measures=Measure.objects.get(component['measures'].value())
+                            )'''
+            query = Compose.objects.create(cocktails=last_added,
+                                           ingredients=Ingredient.objects.get(id=component['ingredients'].value()),
+                                           ingredient_value=component['ingredient_value'].value(),
+                                           measures=Measure.objects.get(component['measures'].value()))
             query.save()
-
         '''
         ------------------------------------------------'''
         return redirect('detail', cocktail_id)

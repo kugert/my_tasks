@@ -8,8 +8,10 @@
     <br>
     Cocktail has {{ add_ingredients.ingredient_count }} ingredients <button type="submit" name="add_ingredient">Add</button>
     <ul>
+    {{ components_form.management_form }}
     {% for form in components_form %}
         <li>
+            {{ form.management_form }}
             {{ form.as_table }}
         </li>
     {% endfor %}
