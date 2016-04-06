@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Create new cocktail:</h1>
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ cocktail_name_form.as_p }}
+    <br>
+    Cocktail has {{ add_ingredients.ingredient_count }} ingredients <button type="submit" name="add_ingredient">Add</button>
+    <ul>
+    {% for form in components_form %}
+        <li>
+            {{ form.as_table }}
+        </li>
+    {% endfor %}
+    </ul>
+    <!--<button type="submit" name="add_component">Add component</button>-->
+    <br>
+    <button type="submit" name="create">Create</button>
+</form>
+{% endblock %}

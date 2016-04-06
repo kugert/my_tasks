@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% include 'vk/index.html' %}
+{% block aside %}
+    {{ block.super }}
+{% endblock %}
+{% block content %}
+<p>Response:</p> {{ vk_resp }}
+{% endblock %}

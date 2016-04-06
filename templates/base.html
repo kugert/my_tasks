@@ -1,0 +1,47 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Work</title>
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css">
+</head>
+<body>
+    <div id="wrapper">
+        <header>
+            {% block header %}
+            <a href="{% url 'index' %}"><img src="{% static 'img/header.jpg' %}" alt="gif" /></a>
+            {% endblock %}
+        </header>
+        <nav>
+            {% block navigation %}
+            <ul class="top_menu">
+                <a href="{% url 'cocktail:index' %}"><li>Cocktails Menu</li></a>
+                <a href="{% url 'vk:index' %}"><li>Vk Search</li></a>
+            </ul>
+            {% endblock %}
+        </nav>
+        {% block page %}
+            <div id="aside">
+                {% block aside %}
+                {% endblock %}
+            </div>
+            <div id="content">
+                {% block content %}
+                {% endblock %}
+            </div>
+        {% endblock %}
+    </div>
+    <footer>
+        <div id="footer">
+            {% block footer %}
+            <p>My Footer</p>
+                <div>
+                    {% now 'jS F Y H:i' %}
+                </div>
+            {% endblock %}
+            </div>
+    </footer>
+</body>
+</html>

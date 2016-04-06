@@ -1,0 +1,13 @@
+{% extends 'cocktail/index.html' %}
+
+{% block aside %}
+    {{ block.super }}
+{% endblock %}
+{% block content %}
+<h1>{{ cocktail.cocktail_name }}</h1>
+<ul>
+    {% for compose in cocktail.compose_set.all %}
+        <li>{{ compose.ingredients }} - {{ compose.ingredient_value }}{{ compose.measures }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

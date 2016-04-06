@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block aside %}
+{% if cocktail_list %}
+    <nav>
+        <ul class="aside">
+            {% for cocktail in cocktail_list %}
+                <li>
+                    <a href="{% url 'cocktail:detail' cocktail.id %}">{{ cocktail.cocktail_name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+{% else %}
+    <p>
+        No cocktails available.
+    </p>
+{% endif %}
+
+    <h4>
+        <a href="{% url 'cocktail:add' %}">Add new cocktail</a>
+    </h4>
+{% endblock %}
