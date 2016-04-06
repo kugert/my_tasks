@@ -34,7 +34,6 @@ def add_cocktail(request):
         '''not working
         ------------------------------------------------'''
         new_components = components_form(request.POST)
-        # new_components.save(commit=False)
         for component in new_components:
             '''query = Compose(cocktails=last_added,
                             ingredients=Ingredient.objects.get(id=component['ingredients'].value()),
