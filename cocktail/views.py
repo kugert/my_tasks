@@ -1,8 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Cocktail
+from django.core.urlresolvers import reverse
 from .forms import *
 from django.forms.formsets import formset_factory
-from django.forms.models import modelformset_factory
 
 
 def index(request):
@@ -43,11 +42,11 @@ def add_cocktail(request):
             query = Compose.objects.create(cocktails=last_added,
                                            ingredients=Ingredient.objects.get(id=component['ingredients'].value()),
                                            ingredient_value=component['ingredient_value'].value(),
-                                           measures=Measure.objects.get(component['measures'].value()))
+                                           measures=Measure.objects.get(id=component['measures'].value()))
             query.save()
         '''
         ------------------------------------------------'''
-        return redirect('detail', cocktail_id)
+        return redirect('../' + str(cocktail_id))
     '''if request.method == 'POST':
         new_cocktail_form = AddCocktailNameForm(request.POST)
         new_cocktail_form.save()
