@@ -1,5 +1,4 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.core.urlresolvers import reverse
 from .forms import *
 from django.forms.formsets import formset_factory
 
@@ -34,11 +33,6 @@ def add_cocktail(request):
         ------------------------------------------------'''
         new_components = components_form(request.POST)
         for component in new_components:
-            '''query = Compose(cocktails=last_added,
-                            ingredients=Ingredient.objects.get(id=component['ingredients'].value()),
-                            ingredient_value=component['ingredient_value'].value(),
-                            measures=Measure.objects.get(component['measures'].value())
-                            )'''
             query = Compose.objects.create(cocktails=last_added,
                                            ingredients=Ingredient.objects.get(id=component['ingredients'].value()),
                                            ingredient_value=component['ingredient_value'].value(),
@@ -47,10 +41,6 @@ def add_cocktail(request):
         '''
         ------------------------------------------------'''
         return redirect('../' + str(cocktail_id))
-    '''if request.method == 'POST':
-        new_cocktail_form = AddCocktailNameForm(request.POST)
-        new_cocktail_form.save()
-        return redirect('../')'''
     return render(request, 'cocktail/add.html', {'cocktail_name_form': cocktail_form,
                                                  'add_ingredients': add_ingredients,
                                                  'components_form': components_form})
