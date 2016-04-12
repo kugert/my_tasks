@@ -29,8 +29,6 @@ def add_cocktail(request):
         added_cocktail = new_cocktail_form['cocktail_name'].value()
         last_added = Cocktail.objects.get(cocktail_name=added_cocktail)
         cocktail_id = last_added.id
-        '''not working
-        ------------------------------------------------'''
         new_components = components_form(request.POST)
         for component in new_components:
             query = Compose.objects.create(cocktails=last_added,
@@ -38,8 +36,6 @@ def add_cocktail(request):
                                            ingredient_value=component['ingredient_value'].value(),
                                            measures=Measure.objects.get(id=component['measures'].value()))
             query.save()
-        '''
-        ------------------------------------------------'''
         return redirect('../' + str(cocktail_id))
     return render(request, 'cocktail/add.html', {'cocktail_name_form': cocktail_form,
                                                  'add_ingredients': add_ingredients,
